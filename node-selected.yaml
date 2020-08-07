@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-selected
+spec:
+  containers:
+  - name: nginx-node-selected
+    image: nginx
+  nodeSelector:
+    hd: ssd
+
+

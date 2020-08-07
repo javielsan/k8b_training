@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-webby-combo
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-webby-combo
+  template:
+    metadata:
+      name: nginx-webby-combo
+      labels:
+        app: nginx-webby-combo
+    spec:
+      containers:
+      - name: webby
+        image: reg.alta3.com/888-sam-webby
+        ports:
+        - name: web
+          containerPort: 8888
+          protocol: TCP
+      - name: blog
+        image: ghost:2.6-alpine
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 2368
+        env:
+        - name: url
+          value: http://localhost:2368/
+      - name: nginx
+        image: nginx:1.7.9
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - name: nginx-proxy-config
+          mountPath: /etc/nginx/nginx.conf
+          subPath: nginx.conf
+        - name: my-index-file
+          mountPath: /var/www/index.html
+          subPath: index.html
+        - name: static-demo-data
+          mountPath: /var/www/static/nginx.txt
+          subPath: nginx.txt
+      volumes:
+      - name: nginx-proxy-config
+        configMap:
+          name: nginx-conf
+      - name: my-index-file
+        configMap:
+          name: index-file
+      - name: static-demo-data
+        configMap:
+          name: nginx-txt
+
+
+

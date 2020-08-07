@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-rsyslog-pod
+spec:
+  containers:
+  - name: nginx-rsyslog-pod
+    image: nginx
+  nodeName: k8s-8281-node-01   # ensures placement on a specific node
+

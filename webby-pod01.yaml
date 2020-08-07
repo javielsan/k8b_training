@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webservice01
+spec:
+  containers:
+  - name: webby
+    image: reg.alta3.com/8281-sanchez-webby
+    ports:
+    - name: webby-port-name
+      containerPort: 8888
+      protocol: TCP
+

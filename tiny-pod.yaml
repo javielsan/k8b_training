@@ -1,0 +1,12 @@
+---
+apiVersion: v1  # take from https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/
+kind: Pod  # resource to create
+metadata:
+  name: nginx-obj-create  # name of the POD we are create
+spec:
+  containers:
+  - name: nginx  # name of the container inside the pod
+    image: nginx:1.7.9   # use this image from docker.io or hub.docker.com
+    ports:
+    - containerPort: 80   # this port is exposed INSIDE the container
+
